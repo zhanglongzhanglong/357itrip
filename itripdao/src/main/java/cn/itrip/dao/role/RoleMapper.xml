@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itrip.dao.role.RoleMapper">
+
+    <select id="getRoleById" resultType="cn.itrip.pojo.Role" >
+        select
+                roleid as roleid,
+                name as name
+        from role
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getRoleListByMap" resultType="cn.itrip.pojo.Role" parameterType="java.util.Map">
+        select
+                roleid as roleid,
+                name as name
+        from role
+        <trim prefix="where" prefixOverrides="and | or">
+                    <if test="roleid != null and roleid!=''">
+                        and roleid=#{roleid}
+                    </if>
+        </trim>
+         order by creationDate desc
+        <if test="beginPos != null and beginPos!='' and pageSize != null  and pageSize !='' ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getRoleCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from role
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="roleid != null and roleid!=''">
+                    and roleid=#{roleid}
+                </if>
+                <if test="name != null and name!=''">
+                    and name=#{name}
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertRole" parameterType="cn.itrip.pojo.Role">
+        insert into role(
+                        roleid,
+                        name)
+        values(
+                     #{roleid},
+                    #{name})
+    </insert>
+
+    <update id="updateRole" parameterType="cn.itrip.pojo.Role">
+        update role
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                    <if test="roleid != null and roleid!=''">
+                        roleid=#{roleid},
+                    </if>
+                    <if test="name != null and name!=''">
+                        name=#{name}
+                    </if>
+        </trim>
+    </update>
+
+    <delete id="deleteRoleById" parameterType="Long">
+        delete from role where id = #{id}
+    </delete>
+</mapper>

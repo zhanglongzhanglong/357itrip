@@ -1,0 +1,6 @@
+127.0.0.1 - - [11/Mar/2022:10:12:32 +0800] "GET /biz/api/hotel/queryhotelfeature HTTP/1.0" 200 352 http-bio-8082-exec-6 379
+127.0.0.1 - - [11/Mar/2022:10:12:32 +0800] "GET /biz/api/hotel/queryhotcity/1 HTTP/1.0" 200 1079 http-bio-8082-exec-5 362
+127.0.0.1 - - [11/Mar/2022:10:12:32 +0800] "GET /biz/api/hotel/queryhotcity/2 HTTP/1.0" 200 1127 http-bio-8082-exec-4 379
+127.0.0.1 - - [11/Mar/2022:10:13:14 +0800] "GET /biz/api/hotel/queryhotcity/2 HTTP/1.0" 200 1127 http-bio-8082-exec-7 28
+127.0.0.1 - - [11/Mar/2022:10:13:14 +0800] "GET /biz/api/hotel/queryhotelfeature HTTP/1.0" 200 352 http-bio-8082-exec-9 31
+127.0.0.1 - - [11/Mar/2022:10:13:14 +0800] "GET /biz/api/hotel/queryhotcity/1 HTTP/1.0" 200 1079 http-bio-8082-exec-8 30

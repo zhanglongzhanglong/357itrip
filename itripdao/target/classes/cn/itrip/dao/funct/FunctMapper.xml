@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itrip.dao.funct.FunctMapper">
+
+    <select id="getFunctById" resultType="cn.itrip.pojo.Funct" >
+        select
+                functid as functid,
+                name as name
+        from funct
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getFunctListByMap" resultType="cn.itrip.pojo.Funct" parameterType="java.util.Map">
+        select
+                functid as functid,
+                name as name
+        from funct
+        <trim prefix="where" prefixOverrides="and | or">
+                    <if test="functid != null and functid!=''">
+                        and functid=#{functid}
+                    </if>
+        </trim>
+         order by creationDate desc
+        <if test="beginPos != null and beginPos!='' and pageSize != null  and pageSize !='' ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getFunctCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from funct
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="functid != null and functid!=''">
+                    and functid=#{functid}
+                </if>
+                <if test="name != null and name!=''">
+                    and name=#{name}
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertFunct" parameterType="cn.itrip.pojo.Funct">
+        insert into funct(
+                        functid,
+                        name)
+        values(
+                     #{functid},
+                    #{name})
+    </insert>
+
+    <update id="updateFunct" parameterType="cn.itrip.pojo.Funct">
+        update funct
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                    <if test="functid != null and functid!=''">
+                        functid=#{functid},
+                    </if>
+                    <if test="name != null and name!=''">
+                        name=#{name}
+                    </if>
+        </trim>
+    </update>
+
+    <delete id="deleteFunctById" parameterType="Long">
+        delete from funct where id = #{id}
+    </delete>
+</mapper>

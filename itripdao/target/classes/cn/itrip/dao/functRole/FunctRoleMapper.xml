@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.itrip.dao.functRole.FunctRoleMapper">
+
+    <select id="getFunctRoleById" resultType="cn.itrip.pojo.FunctRole" >
+        select
+                roleid as roleid,
+                functid as functid
+        from funct_role
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id=#{id}
+            </if>
+        </trim>
+    </select>
+
+    <select id="getFunctRoleListByMap" resultType="cn.itrip.pojo.FunctRole" parameterType="java.util.Map">
+        select
+                roleid as roleid,
+                functid as functid
+        from funct_role
+        <trim prefix="where" prefixOverrides="and | or">
+                    <if test="roleid != null and roleid!=''">
+                        and roleid=#{roleid}
+                    </if>
+        </trim>
+         order by creationDate desc
+        <if test="beginPos != null and beginPos!='' and pageSize != null  and pageSize !='' ">
+            limit #{beginPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getFunctRoleCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from funct_role
+        <trim prefix="where" prefixOverrides="and | or">
+                <if test="roleid != null and roleid!=''">
+                    and roleid=#{roleid}
+                </if>
+                <if test="functid != null and functid!=''">
+                    and functid=#{functid}
+                </if>
+        </trim>
+    </select>
+
+    <insert id="insertFunctRole" parameterType="cn.itrip.pojo.FunctRole">
+        insert into funct_role(
+                        roleid,
+                        functid)
+        values(
+                     #{roleid},
+                    #{functid})
+    </insert>
+
+    <update id="updateFunctRole" parameterType="cn.itrip.pojo.FunctRole">
+        update funct_role
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+                    <if test="roleid != null and roleid!=''">
+                        roleid=#{roleid},
+                    </if>
+                    <if test="functid != null and functid!=''">
+                        functid=#{functid}
+                    </if>
+        </trim>
+    </update>
+
+    <delete id="deleteFunctRoleById" parameterType="Long">
+        delete from funct_role where id = #{id}
+    </delete>
+</mapper>
